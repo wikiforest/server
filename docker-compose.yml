@@ -8,7 +8,7 @@ services:
             - ./deploy/nginx/logs:/web/logs/nginx
             - .:/opt/www
         ports:
-            - "80:80"
+            - "2233:80"
         environment:
             - NGINX_PORT=80
     server:

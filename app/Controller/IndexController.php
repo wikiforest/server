@@ -33,28 +33,10 @@ class IndexController extends AbstractController
         $user = $request->input('user', 'Hyperf');
         $method = $request->getMethod();
 
-        $parallel = new Parallel();
-        $foo = Context::set('foo', 'bar');
-        $parallel->add(function () {
-            sleep(2);
-            return Context::get('foo');
-        });
-        $parallel->add(function () {
-            sleep(1);
-            Context::override('foo', function($foo) {
-                return 'hahaha';
-            });
-            return 2;
-        });
-
-        $results = $parallel->wait(); 
-
         return [
             'method' => $method,
             'message' => "Hello {$user}.",
-            'name' => $userService->getName(),
-            'a' => $results,
-            'context' => Context::get('foo')
+            'name' => $userService->getName()
         ];
     }
 }

@@ -1,5 +1,4 @@
 upstream hyperf {
-    # Hyperf HTTP Server 的 IP 及 端口
     server server:9501;
     server server:9502;
 }
