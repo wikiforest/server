@@ -8,9 +8,10 @@ services:
             - ./deploy/nginx/logs:/web/logs/nginx
             - .:/opt/www
         ports:
-            - "2233:80"
+            - "80:80"
         environment:
             - NGINX_PORT=80
+            - LOCAL_IP=${LOCAL_IP}
     server:
         build: .
         restart: always
@@ -28,3 +29,13 @@ services:
             MYSQL_ROOT_PASSWORD: blldxt
         expose:
             - "3306"
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin:latest
+        environment:
+            PMA_HOST: db
+            PMA_VERBOSE: 8
+            PMA_PORT: 3306
+            MYSQL_USER: root
+            MYSQL_ROOT_PASSWORD: blldxt
+        ports:
+            - "2334:80"
