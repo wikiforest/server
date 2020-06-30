@@ -10,19 +10,19 @@ services:
         ports:
             - "80:80"
         environment:
-            - NGINX_PORT=80
-            - LOCAL_IP=${LOCAL_IP}
+            - NGINX_PORT=${DOCKER_WEB_PORT}
+            - DOCKER_UI_IP=${DOCKER_UI_IP}
     server:
         build:
-            context: ./
-            dockerfile: Dockerfile
+            context: ./deploy/docker/
+            dockerfile: Dockerfile.${DOCKER_SERVER_ENV}
         container_name: wiki_server_hyperf
-        image: alexlayton/hyperf:1.0.0
+        image: alexlayton/hyperf:${DOCKER_SERVER_IMAGE_TAB}
+        entrypoint: ["php", "/opt/www/bin/hyperf.php", "start"]
         restart: always
+        tty: true
         volumes:
             - .:/opt/www
-        expose:
-            - "9501"
     db:
         image: mysql:8
         command: --default-authentication-plugin=mysql_native_password
@@ -30,16 +30,16 @@ services:
             - ./deploy/mysql:/var/lib/mysql
         restart: always
         environment:
-            MYSQL_ROOT_PASSWORD: blldxt
+            MYSQL_ROOT_PASSWORD: ${DOCKER_DB_PASSWD}
         expose:
-            - "3306"
+            - ${DOCKER_DB_PORT}
     phpmyadmin:
         image: phpmyadmin/phpmyadmin:latest
         environment:
             PMA_HOST: db
             PMA_VERBOSE: 8
-            PMA_PORT: 3306
+            PMA_PORT: ${DOCKER_DB_PORT}
             MYSQL_USER: root
-            MYSQL_ROOT_PASSWORD: blldxt
+            MYSQL_ROOT_PASSWORD: ${DOCKER_DB_PASSWD}
         ports:
             - "2334:80"
