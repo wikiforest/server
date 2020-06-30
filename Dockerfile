@@ -45,6 +45,8 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     && rm -rf /var/cache/apk/* /tmp/* /usr/share/man \
     && echo -e "\033[42;37m Build Completed :).\033[0m\n"
 
+RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
+
 WORKDIR /opt/www
 
 # Composer Cache
