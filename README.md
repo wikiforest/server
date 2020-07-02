@@ -31,7 +31,7 @@ sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 ```
 
 ## Docker Hub
-https://hub.docker.com/u/alexlayton
+https://hub.docker.com/orgs/wikiforest/
 
 ## Get start
 ```sh

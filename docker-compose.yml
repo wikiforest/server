@@ -17,7 +17,7 @@ services:
             context: ./deploy/docker/
             dockerfile: Dockerfile.${DOCKER_SERVER_ENV}
         container_name: wiki_server_hyperf
-        image: alexlayton/hyperf:${DOCKER_SERVER_IMAGE_TAB}
+        image: wikiforest/hyperf:${DOCKER_SERVER_IMAGE_TAB}
         entrypoint: ["php", "/opt/www/bin/hyperf.php", "start"]
         restart: always
         tty: true
