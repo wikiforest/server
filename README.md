@@ -34,6 +34,12 @@ sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 https://hub.docker.com/orgs/wikiforest/
 
 ## Get start
+
+### Change host
+```
+127.0.0.1       api.wikiforest.com
+```
+
 ```sh
 docker-compose build
 composer install --ignore-platform-reqs
