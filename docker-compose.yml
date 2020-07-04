@@ -1,4 +1,8 @@
 version: "3.7"
+networks:
+    default:
+        name: wikiforest
+        driver: bridge
 services:
     web:
         image: nginx:latest
@@ -7,11 +11,13 @@ services:
             - ./deploy/nginx/templates:/etc/nginx/templates
             - ./deploy/nginx/logs:/web/logs/nginx
             - .:/opt/www
-        ports:
-            - "80:80"
+        expose:
+            - 80
         environment:
-            - NGINX_PORT=${DOCKER_WEB_PORT}
-            - DOCKER_UI_IP=${DOCKER_UI_IP}
+            NGINX_PORT: ${DOCKER_WEB_PORT}
+            DOCKER_UI_IP: ${DOCKER_UI_IP}
+            DOCKER_UI_HOST: ${DOCKER_UI_HOST}
+            VIRTUAL_HOST: api.wikiforest.com
     server:
         build:
             context: ./deploy/docker/
@@ -43,3 +49,10 @@ services:
             MYSQL_ROOT_PASSWORD: ${DOCKER_DB_PASSWD}
         ports:
             - "2334:80"
+    nginx-proxy:
+        image: jwilder/nginx-proxy
+        container_name: nginx-proxy
+        ports:
+            - "80:80"
+        volumes:
+            - /var/run/docker.sock:/tmp/docker.sock:ro

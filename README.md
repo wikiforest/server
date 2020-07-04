@@ -40,6 +40,12 @@ composer install --ignore-platform-reqs
 docker-compose up
 ```
 
+## Change host
+```
+127.0.0.1       wikiforest.com
+127.0.0.1       api.wikiforest.com
+```
+
 ## Push if Dockerfiles changed
 ```sh
 docker-compose push
