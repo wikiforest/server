@@ -47,6 +47,8 @@ services:
             PMA_PORT: ${DOCKER_DB_PORT}
             MYSQL_USER: root
             MYSQL_ROOT_PASSWORD: ${DOCKER_DB_PASSWD}
+        volumes:
+            - ./deploy/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
         ports:
             - "2334:80"
     nginx-proxy:
