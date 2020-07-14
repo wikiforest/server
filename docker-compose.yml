@@ -40,7 +40,7 @@ services:
         expose:
             - ${DOCKER_DB_PORT}
     phpmyadmin:
-        image: phpmyadmin/phpmyadmin:latest
+        image: phpmyadmin/phpmyadmin:4.9.4-fpm-alpine
         environment:
             PMA_HOST: db
             PMA_VERBOSE: 8
