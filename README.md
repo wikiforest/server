@@ -48,8 +48,9 @@ docker-compose up
 
 ## Change host
 ```
-127.0.0.1       wikiforest.com
 127.0.0.1       api.wikiforest.com
+127.0.0.1       db.wikiforest.com
+127.0.0.1       container.wikiforest.com
 ```
 
 ## Push if Dockerfiles changed
