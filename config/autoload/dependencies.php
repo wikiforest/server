@@ -11,6 +11,6 @@ declare(strict_types=1);
  */
 
 return [
-    'InnerHttp' => Hyperf\HttpServer\Server::class,
     Hyperf\HttpServer\CoreMiddleware::class => App\Middleware\CoreMiddleware::class,
+    Hyperf\Contract\StdoutLoggerInterface::class => \App\StdoutLoggerFactory::class,
 ];

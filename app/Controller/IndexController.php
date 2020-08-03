@@ -19,7 +19,7 @@ use Hyperf\HttpServer\Annotation\RequestMapping;
 use Hyperf\Utils\Coroutine;
 use Hyperf\Utils\Parallel;
 use Hyperf\Utils\Context;
-use Fluent\Logger\FluentLogger;
+use Hyperf\Logger\LoggerFactory;
 
 /**
  * @Controller()
@@ -29,12 +29,14 @@ class IndexController extends AbstractController
     /**
      * @RequestMapping(path="index", methods="get,post")
      */
-    public function index(RequestInterface $request, UserService $userService)
+    public function index(RequestInterface $request, UserService $userService, LoggerFactory $loggerFactory)
     {
-        $logger = new FluentLogger("fluentd","24225");
+        $logger = $loggerFactory->get();
+        // $logger = new FluentLogger("fluentd","24225");
         $user = $request->input('user', 'Hyperf');
         $method = $request->getMethod();
-        $logger->post("server.app.debug",array("hello"=>"world"));
+        // $logger->post("server.app.debug",array("hello"=>"world"));
+        $logger->error('Some Thing Wrong!');
 
         return [
             ['id' => 1, 'title' => 'title1'],
@@ -46,7 +48,6 @@ class IndexController extends AbstractController
             ['id' => 7, 'title' => 'title7'],
             ['id' => 8, 'title' => 'title8'],
             ['id' => 9, 'title' => 'title9'],
-            ['id' => 10, 'title' => 'title10']
         ];
     }
 }

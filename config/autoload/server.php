@@ -23,19 +23,9 @@ return [
             'port' => 9501,
             'sock_type' => SWOOLE_SOCK_TCP,
             'callbacks' => [
-                SwooleEvent::ON_REQUEST => ['InnerHttp', 'onRequest'],
+                SwooleEvent::ON_REQUEST => [Hyperf\HttpServer\Server::class, 'onRequest'],
             ],
-        ],
-        [
-            'name' => 'innerHttp',
-            'type' => Server::SERVER_HTTP,
-            'host' => '0.0.0.0',
-            'port' => 9502,
-            'sock_type' => SWOOLE_SOCK_TCP,
-            'callbacks' => [
-                SwooleEvent::ON_REQUEST => ['InnerHttp', 'onRequest'],
-            ],
-        ],
+        ]
     ],
     'settings' => [
         'enable_coroutine' => true,
