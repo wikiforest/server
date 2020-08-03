@@ -34,7 +34,7 @@ class IndexController extends AbstractController
         $logger = new FluentLogger("fluentd","24225");
         $user = $request->input('user', 'Hyperf');
         $method = $request->getMethod();
-        $logger->post("app.api",array("hello"=>"world"));
+        $logger->post("server.app.debug",array("hello"=>"world"));
 
         return [
             ['id' => 1, 'title' => 'title1'],
