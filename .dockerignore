@@ -1,10 +1,12 @@
-*.example
-.git
+.git*
 .DS_Store
 .dockerignore
 .gitlab-ci.yml
 
+*.example
+deploy.test.yml
 docker-compose.yml
+Dockerfile*
 README.md
 push.sh
 

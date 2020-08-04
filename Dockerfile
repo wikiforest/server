@@ -16,7 +16,7 @@ ARG timezone
 
 ENV TIMEZONE=${timezone:-"Asia/Shanghai"} \
     COMPOSER_VERSION=1.9.1 \
-    APP_ENV=prod
+    APP_ENV=${DOCKER_ENV}
 
 # update
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
@@ -32,7 +32,6 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     && php -m \
     #  ---------- some config ----------
     && cd /etc/php7 \
-    # - config PHP
     && { \
         echo "upload_max_filesize=100M"; \
         echo "post_max_size=108M"; \
@@ -46,11 +45,20 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     && rm -rf /var/cache/apk/* /tmp/* /usr/share/man \
     && echo -e "\033[42;37m Build Completed :).\033[0m\n"
 
-# Composer Cache
-COPY ./composer.json /opt/www/
+# - config PHP
+WORKDIR /etc/php7
+RUN { \
+        echo "upload_max_filesize=100M"; \
+        echo "post_max_size=108M"; \
+        echo "memory_limit=1024M"; \
+        echo "date.timezone=${TIMEZONE}"; \
+    } | tee conf.d/99-overrides.ini
 
 WORKDIR /opt/www
-RUN composer install
+# Composer Cache
+COPY ./composer.* ./
+RUN composer install ${COMPOSER_ARGS}
+COPY . .
 
 EXPOSE 9501
 
